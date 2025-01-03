@@ -9,10 +9,11 @@
 </head>
 
 <body>
+    <canvas id="cubeCanvas" width="800" height="600"></canvas>
     <script>
         // constants
-        const COLOR_BG = "black";
         const COLOR_CUBE = "yellow";
+        const COLOR_BG = "black"; // Aggiungi questa linea per definire COLOR_BG
         const SPEED_X = 0.05; // rotation speed
         const SPEED_Y = 0.15; // rotation speed
         const SPEED_Z = 0.10; // rotation speed
@@ -23,15 +24,10 @@
         };
 
         // set up the canvas and context
-        var canvas = document.createElement("Canvas");
-        document.body.appendChild(canvas);
-        var ctx = canvas.getContext("2d");
-
-        // dimensions
-        var h = document.documentElement.clientHeight;
-        var w = document.documentElement.clientWidth;
-        canvas.height = h;
-        canvas.width = w;
+        var canvas = document.getElementById('cubeCanvas');
+        var ctx = canvas.getContext('2d');
+        var w = canvas.width;
+        var h = canvas.height;
 
         //colours and lines
         ctx.fillStyle = COLOR_BG;
@@ -60,7 +56,7 @@
             [0, 4], [1, 5], [2, 6], [3, 7] // connecting lines
         ];
 
-        // set up the animation lopp
+        // set up the animation loop
         var timeDelta, timeLast = 0;
         requestAnimationFrame(loop);
 
@@ -70,7 +66,27 @@
             timeLast = timeNow;
 
             // background
-            ctx.fillReact(0, 0, w, h);
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, w, h);
+
+            // rotate the cube along the z axis
+            let angle = timeDelta * 0.001 * SPEED_Z * Math.PI * 2;
+            for (let v of vertices) {
+                let dx = v.x - cx;
+                let dy = v.y - cy;
+                let x = dx * Math.cos(angle) - dy * Math.sin(angle);
+                let y = dx * Math.sin(angle) + dy * Math.cos(angle);
+                v.x = x + cx;
+                v.y = y + cy;
+            }
+
+            // draw the edges
+            for (let edge of edges) {
+                ctx.beginPath();
+                ctx.moveTo(vertices[edge[0]].x, vertices[edge[0]].y);
+                ctx.lineTo(vertices[edge[1]].x, vertices[edge[1]].y);
+                ctx.stroke();
+            }
 
             // call the next frame
             requestAnimationFrame(loop);
