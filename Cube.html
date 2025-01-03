@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
     <title>Cube</title>
 </head>
 
@@ -38,7 +39,37 @@
         ctx.lineWidth = w / 100;
         ctx.lineCap = "round";
 
+        // cube parameters
+        var cx = w / 2;
+        var cy = h / 2;
+        var cz = 0;
+        var size = w / 4;
+        var vertices = [
+            new POINT3D(cx - size, cy - size, cz - size),
+            new POINT3D(cx + size, cy - size, cz - size),
+            new POINT3D(cx + size, cy + size, cz - size),
+            new POINT3D(cx - size, cy + size, cz - size),
+            new POINT3D(cx - size, cy - size, cz + size),
+            new POINT3D(cx + size, cy - size, cz + size),
+            new POINT3D(cx + size, cy + size, cz + size),
+            new POINT3D(cx - size, cy + size, cz + size)
+        ];
 
+        // set up the animation lopp
+        var timeDelta, timeLast = 0;
+        requestAnimationFrame(loop);
+
+        function loop(timeNow) {
+            // calculate the time difference
+            timeDelta = timeNow - timeLast;
+            timeLast = timeNow;
+
+            // background
+            ctx.fillReact(0, 0, w, h);
+
+            // call the next frame
+            requestAnimationFrame(loop);
+        }
 
     </script>
 </body>
