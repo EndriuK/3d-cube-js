@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cube</title>
+</head>
+
+<body>
+    <script>
+        // constants
+        const COLOR_BG = "black";
+        const COLOR_CUBE = "yellow";
+        const SPEED_X = 0.05; // rotation speed
+        const SPEED_Y = 0.15; // rotation speed
+        const SPEED_Z = 0.10; // rotation speed
+        const POINT3D = function (x, y, z) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        };
+
+        // set up the canvas and context
+        var canvas = document.createElement("Canvas");
+        document.body.appendChild(canvas);
+        var ctx = canvas.getContext("2d");
+
+        // dimensions
+        var h = document.documentElement.clientHeight;
+        var w = document.documentElement.clientWidth;
+        canvas.height = h;
+        canvas.width = w;
+
+        //colours and lines
+        ctx.fillStyle = COLOR_BG;
+        ctx.strokeStyle = COLOR_CUBE;
+        ctx.lineWidth = w / 100;
+        ctx.lineCap = "round";
+
+
+
+    </script>
+</body>
+
+</html>
